@@ -32,7 +32,10 @@ Flujos principales del prototipo:
 - **Favoritos** — marcar Pokémon de interés desde cualquier vista del catálogo.
 - **Estadísticas** — ranking de Pokémon más vistos y más elegidos en equipos, con estética de
   marcador deportivo.
-- **Panel de administración** — CRUD del catálogo, exclusivo para el rol Admin.
+- **Login** — controla el acceso; una vez autenticado como Admin, se habilita el panel de
+  administración.
+- **Panel de administración** — CRUD del catálogo en formato tabla, exclusivo para el rol Admin
+  y accesible solo después de iniciar sesión.
 
 ## Manual de identidad
 
@@ -41,13 +44,14 @@ y un cruce temático con baloncesto (las Poké Ball se rediseñan con costuras d
 general: **retro-moderno** — texturas y tipografía de cartucho/cartas de los 90s, aplicadas con
 un layout limpio y actual.
 
+
 ### Mascota y logo
 
 - **Mascota:** Charizard, en pose dinámica (a media "volcada" tipo mate de baloncesto).
 - **Isotipo:** Poké Ball rediseñada con las costuras curvas de un balón de baloncesto en vez de
   la línea central clásica — mitad superior en naranja balón, mitad inferior en crema hueso.
-- **Logotipo:** "CHIMIDEX" en bloque retro (ver tipografía de display), con una sombra ligera o
-  textura de puntos (halftone) para sensación de impresión de cómic/carta antigua.
+  Se usa en el header, en el botón de "marcar favorito" y en el botón de "agregar a equipo".
+- **Logotipo:** "CHIMIDEX" en Bungee, todo mayúsculas, en el header de cada pantalla.
 
 ### Paleta de colores
 
@@ -56,34 +60,44 @@ un layout limpio y actual.
 | Fuego Charizard | `#FF6B35` | Color primario — CTAs, acentos de marca |
 | Ember profundo | `#D2401F` | Hover/estados activos, degradados con el primario |
 | Naranja balón | `#E67E22` | Isotipo (Poké Ball-balón), iconografía deportiva |
-| Crema carta | `#F5E6C8` | Fondo de cards estilo TCG, "papel" retro |
-| Tinta | `#1A1A1A` | Texto, contornos tipo cómic, costuras del balón |
-| Oro holo | `#E8B923` | Bordes de rareza/foil, badges destacados (favoritos, stats top) |
-| Azul cancha | `#1B2A4A` | Contraste/dark mode, headers, texto secundario |
+| Crema carta | `#F5E6C8` | Fondo general de la app, tipo "papel" de carta TCG |
+| Crema carta claro | `#FBE3C6` / `#EFDDB6` | Variantes de fondo para filas/tarjetas secundarias |
+| Tinta | `#1A1A1A` | Texto, contornos tipo cómic, header, costuras del balón |
+| Oro holo | `#E8B923` | Contador de equipo, badges de rareza/destacados |
+| Azul cancha | `#1B2A4A` / `#20304f` | Fondo del área de ilustración en la vista de detalle |
+
+**Colores de tipo:** cada tipo de Pokémon (Fuego, Agua, Planta, Eléctrico, etc.) tiene su propio
+color de acento para bordes de card y badges — ej. Agua usa `#2E86C1`, Normal usa `#9A9885`. La
+lista completa vive en `data.js` (`TYPE_COLORS`).
 
 ### Tipografía
 
-Combinación retro para display + una sans legible para cuerpo de texto (los bloques de datos de
-un Pokémon necesitan legibilidad real, no solo estética):
-
-| Uso | Fuente sugerida | Notas |
+| Uso | Fuente | Notas |
 |---|---|---|
-| Logotipo / Display | **Bungee** | Bloque retro-poster, para "CHIMIDEX" y títulos grandes |
-| Encabezados / Stats | **Rubik Mono One** | Look de marcador deportivo / cartucho de consola |
-| Cuerpo de texto | **Work Sans** o **Inter** | Legible en descripciones, listas y formularios |
+| Logotipo / Display | **Bungee** | "CHIMIDEX" y títulos grandes (ej. nombre del Pokémon en detalle) |
+| Encabezados / Stats / Nav | **Rubik Mono One** | Look de marcador deportivo — nav, contador de equipo, barras de stats, tabla de admin |
+| Cuerpo de texto | **Work Sans** | Descripciones, formularios, listas de ataques |
 
-### Componentes base
+### Componentes implementados
 
-- **Card de Pokémon (estilo TCG):** tarjeta con esquinas redondeadas, borde de color por tipo
-  (fuego = naranja, agua = azul, etc.), fondo crema, ilustración central, franja de stats en la
-  parte inferior imitando el layout de HP/ataques de una carta real, y el número de Pokédex como
-  "número de serie" en la esquina.
-- **Botón / ícono primario:** usa el isotipo balón-Poké Ball como marcador visual en acciones
-  clave (agregar a equipo, marcar favorito).
-- **Fondo de tablero:** textura sutil de cancha de baloncesto (líneas de madera + círculo central)
-  como fondo de las vistas de listado/dashboard, muy tenue para no competir con el contenido.
-- **Badges de tipo:** chips redondeados con el color de cada tipo, mismo estilo que las cartas TCG
-  reales (Fuego, Agua, Planta, Eléctrico, etc.).
+- **Card de Pokémon (catálogo):** borde de color por tipo, fondo crema, silueta placeholder
+  (marcada explícitamente como tal, sin arte real), badges de tipo, número de Pokédex.
+- **Vista de detalle:** card ampliada con barras de stats, lista de ataques, descripción, y
+  botones de favorito/equipo con el isotipo balón-Poké Ball.
+- **Slots de equipo:** hasta 6 espacios (llenos o vacíos) con opción de quitar cada Pokémon
+  directamente desde ahí; el contador "X/6" del header refleja el estado real en todo momento.
+- **Ranking de stats:** listas numeradas tipo tabla de posiciones para "más vistos" y "más
+  elegidos en equipos".
+- **Panel de administración:** tabla con columnas (Nº, nombre, tipo, región, generación, stats,
+  acciones), protegida detrás del login — solo visible para el rol Admin autenticado.
+- **Login:** formulario simple, mismo estilo retro-moderno, controla el acceso a Admin.
+
+### Pendiente de identidad visual
+
+- Marca de agua de cancha de baloncesto (líneas de cancha + isotipo balón-Poké Ball en el
+  círculo central) — diseñada pero aún no implementada en el prototipo.
+- Definición final de cómo se ilustra cada Pokémon (actualmente silueta placeholder; ver nota
+  de alcance más abajo).
 
 ## Diagramas
 
