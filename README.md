@@ -1,9 +1,9 @@
 # Pokédex — Frontend
 
 Prototipo funcional de la interfaz de la Pokédex: catálogo de Pokémon, equipos, favoritos y
-estadísticas, consumiendo la [Pokédex API](#) <!-- reemplazar con el link al repo de backend -->.
+estadísticas, consumiendo la [https://github.com/heverthisday/DOSW-2026-POKEDEX-BackEnd-HeverBarrera.git](#) <!-- reemplazar con el link al repo de backend -->.
 
->  **Prototipo en Figma:** [enlace al prototipo](#) <!-- reemplazar con el link real de Figma -->
+>  **Prototipo :** [enlace al prototipo](#) <!-- reemplazar con el link real de Figma -->
 
 ## Tabla de contenidos
 
