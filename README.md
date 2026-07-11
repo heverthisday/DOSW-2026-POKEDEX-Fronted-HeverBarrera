@@ -3,7 +3,7 @@
 Prototipo funcional de la interfaz de la Pokédex: catálogo de Pokémon, equipos, favoritos y
 estadísticas, consumiendo la [https://github.com/heverthisday/DOSW-2026-POKEDEX-BackEnd-HeverBarrera.git](#) <!-- reemplazar con el link al repo de backend -->.
 
->  **Prototipo :** [enlace al prototipo](#) <!-- reemplazar con el link real de Figma -->
+>  **Prototipo :** [https://github.com/heverthisday/DOSW-2026-POKEDEX-Fronted-HeverBarrera/blob/main/prototype/index.html](#) <!-- reemplazar con el link real de Figma -->
 
 ## Tabla de contenidos
 
